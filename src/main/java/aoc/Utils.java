@@ -22,7 +22,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 public class Utils {
     
     public static List<String> splitLines(String input) {
-        return Arrays.asList(input.split(System.lineSeparator()));
+        return Arrays.asList(input.split("\n")); // System.lineSeparator()));
     }
 
 }

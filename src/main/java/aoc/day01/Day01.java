@@ -10,6 +10,7 @@ public class Day01 implements Day {
     @Override
     public String part1(String input) {
         List<String> lines = Utils.splitLines(input);
+        // List<Integer> lefIntegers = lines.stream().map
         return lines.isEmpty() ? "" : lines.get(0);
     }
 
