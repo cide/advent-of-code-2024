@@ -1,19 +1,15 @@
 package aoc.day01;
 
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.util.Collections;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Day01Test {
 
     @Test
     public void testPart1(){
         // Given
-        String input = """
+        final String input = """
                 3   4
                 4   3
                 2   5
@@ -23,17 +19,17 @@ public class Day01Test {
                 """;
 
         // When
-        String result = new Day01().part1(input);
+        final String result = new Day01().part1(input);
 
-        String expected = "11";
+        final String expected = "11";
         // Then
-        assertEquals(expected, result);
+        Assertions.assertEquals(expected, result);
     }
 
     @Test
     public void testPart2(){
         // Given
-        String input = """
+        final String input = """
                 3   4
                 4   3
                 2   5
@@ -42,10 +38,10 @@ public class Day01Test {
                 3   3
                 """;
         // When
-        String result = new Day01().part2(input);
+        final String result = new Day01().part2(input);
 
-        String expected = "31";
+        final String expected = "31";
         // Then
-        assertEquals(expected, result);
+        Assertions.assertEquals(expected, result);
     }
 }
