@@ -3,6 +3,7 @@
  */
 package aoc;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URI;
@@ -30,21 +31,21 @@ public class App {
      * second (optional) argument should be the part to run ("1" or "2"). The
      * second argument defaults to "1".
      */
-    public static void main(String... args) {
-        int year = defaultYear();
-        int day = defaultDay();
+    public static void main(final String... args) {
+        final int year = App.defaultYear();
+        int day = App.defaultDay();
 
         if (args.length != 0) {
-            day = intOrDie(args[0]);
+            day = App.intOrDie(args[0]);
         }
 
         int part = 1;
         if (args.length > 1) {
-            part = intOrDie(args[1]);
+            part = App.intOrDie(args[1]);
         }
 
-        String input = readInput(year, day);
-        Day dayInstance = getDayInstance(day);
+        final String input = App.readInput(year, day);
+        final Day dayInstance = App.getDayInstance(day);
 
         String result;
         if (part == 1) {
@@ -72,8 +73,8 @@ public class App {
      * it from!
      *
      */
-    public static void runPart1ForDay(int day) {
-        main(String.valueOf(day), "1");
+    public static void runPart1ForDay(final int day) {
+        App.main(String.valueOf(day), "1");
     }
 
     /**
@@ -92,8 +93,8 @@ public class App {
      * it from!
      *
      */
-    public static void runPart2ForDay(int day) {
-        main(String.valueOf(day), "1");
+    public static void runPart2ForDay(final int day) {
+        App.main(String.valueOf(day), "1");
     }
 
     /**
@@ -104,7 +105,7 @@ public class App {
      * @return The day of the month if today is in December, or 1 otherwise.
      */
     private static int defaultDay() {
-        LocalDate today = LocalDate.now();
+        final LocalDate today = LocalDate.now();
         if (today.getMonth() == Month.DECEMBER) {
             return today.getDayOfMonth();
         } else {
@@ -126,7 +127,7 @@ public class App {
      * @return The current year during December, or the prior year otherwise.
      */
     private static int defaultYear() {
-        LocalDate today = LocalDate.now();
+        final LocalDate today = LocalDate.now();
         if (today.getMonth() == Month.DECEMBER) {
             return today.getYear();
         } else {
@@ -143,20 +144,21 @@ public class App {
      * @return An Optional containing the contents of the file as a String, or
      * an empty Optional if the file could not be read for any reason.
      */
-    private static Optional<String> readClassPathFile(String fileName) {
-        URL url = ClassLoader.getSystemResource(fileName);
+    private static Optional<String> readClassPathFile(final String fileName) {
+        final URL url = ClassLoader.getSystemResource(fileName);
         if (url == null) {
             System.out.println("No file " + fileName + " on the classpath.");
             return Optional.empty();
         }
-        Path path = Paths.get(url.getFile());
+        final File file = new File(url.getFile());
+        final Path path = file.toPath(); // Paths.get(url.getFile()); throws exception under windows...
         if (!Files.exists(path)) {
             return Optional.empty();
         }
 
         try {
             return Optional.of(Files.readString(path));
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
             return Optional.empty();
         }
@@ -174,7 +176,7 @@ public class App {
      * @param day The day number (1-25)
      * @return The name of the input file for the given day.
      */
-    private static String inputFileName(int day) {
+    private static String inputFileName(final int day) {
         String paddedDay = String.valueOf(day);
         if (day < 10) {
             paddedDay = "0" + day;
@@ -194,23 +196,23 @@ public class App {
      * @return The contents of the input that were written to a
      * file.
      */
-    private static String downloadInput(int year, int day, String cookie) {
-        String url = String.format("https://adventofcode.com/%d/day/%d/input", year, day);
+    private static String downloadInput(final int year, final int day, final String cookie) {
+        final String url = String.format("https://adventofcode.com/%d/day/%d/input", year, day);
         System.out.println("Downloading " + url);
 
         URI uri;
         try {
             uri = new URI(url);
-        } catch (URISyntaxException e) {
+        } catch (final URISyntaxException e) {
             throw new RuntimeException(e);
         }
 
-        HttpRequest request = HttpRequest.newBuilder()
+        final HttpRequest request = HttpRequest.newBuilder()
                 .uri(uri)
                 .header("cookie", cookie.trim())
                 .build();
 
-        HttpClient client = HttpClient.newHttpClient();
+        final HttpClient client = HttpClient.newHttpClient();
 
         HttpResponse<String> response;
         try {
@@ -225,10 +227,10 @@ public class App {
                     + " " + response.body());
         }
 
-        String input = response.body();
+        final String input = response.body();
         try {
-            Files.writeString(Paths.get("./src/main/resources/" + inputFileName(day)), input, StandardCharsets.UTF_8);
-        } catch (IOException e) {
+            Files.writeString(Paths.get("./src/main/resources/" + App.inputFileName(day)), input, StandardCharsets.UTF_8);
+        } catch (final IOException e) {
             throw new UncheckedIOException(e);
         }
         return input;
@@ -247,16 +249,16 @@ public class App {
      * @param day the day to get input for
      * @return The input as a String.
      */
-    private static String readInput(int year, int day) {
-        Optional<String> fileInput = readClassPathFile(inputFileName(day));
+    private static String readInput(final int year, final int day) {
+        final Optional<String> fileInput = App.readClassPathFile(App.inputFileName(day));
 
         String input = null;
         if (fileInput.isPresent()) {
             input = fileInput.get();
         } else {
-            Optional<String> cookie = readClassPathFile("session.txt");
+            final Optional<String> cookie = App.readClassPathFile("session.txt");
             if (cookie.isPresent()) {
-                input = downloadInput(year, day, cookie.get());
+                input = App.downloadInput(year, day, cookie.get());
             } else {
                 System.err.println("Cannot get input for year " + year + " and day " + day + "."
                         + " Either put the input at 'src/main/resources/day[xx].txt"
@@ -274,10 +276,10 @@ public class App {
      * @param numeric A String that better be numeric.
      * @return The String as an int
      */
-    private static int intOrDie(String numeric) {
+    private static int intOrDie(final String numeric) {
         try {
             return Integer.valueOf(numeric);
-        } catch (NumberFormatException e) {
+        } catch (final NumberFormatException e) {
             System.out.println("The argument '" + numeric + "' could not be interpreted as an integer number.");
             System.exit(1);
         }
@@ -294,15 +296,15 @@ public class App {
      * @param day The day number
      * @return An instance of the Day implementation for the given day (e.g. Day01.class for day = 1)
      */
-    private static Day getDayInstance(int day) {
-        String dayClassName = String.format("aoc.day%02d.Day%02d", day, day);
+    private static Day getDayInstance(final int day) {
+        final String dayClassName = String.format("aoc.day%02d.Day%02d", day, day);
         try {
-            Class<?> dayClass = Class.forName(dayClassName);
+            final Class<?> dayClass = Class.forName(dayClassName);
             if (!Day.class.isAssignableFrom(dayClass)) {
                 throw new IllegalArgumentException(dayClassName + " does not implement aoc.Day");
             }
             return (Day) dayClass.getDeclaredConstructor().newInstance();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
             System.err.println("Failed to load " + dayClassName
                     + " class. Did you remember to create it and implement the Day interface?");

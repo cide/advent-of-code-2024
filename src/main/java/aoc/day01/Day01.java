@@ -26,6 +26,8 @@ public class Day01 implements Day {
 
     @Override
     public String part2(final String input) {
+        final List<String> lines = Utils.splitLines(input);
+        
         return input;
     }
 
