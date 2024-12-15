@@ -10,16 +10,12 @@ public class Day01 implements Day {
     @Override
     public String part1(final String input) {
         final List<String> lines = Utils.splitLines(input);
-        final List<Integer> leftIntegers = lines.stream().filter(s -> s.contains("  "))
-                .map(s -> Integer.valueOf(Utils.splitColumns(s)[0])).sorted()
-                .toList();
+        final List<Integer> leftIntegers = getIntegerCol(lines, 0);
+        final List<Integer> rightIntegers = getIntegerCol(lines, 1);
 
-        final List<Integer> rightIntegers = lines.stream().filter(s -> s.contains("  "))
-                .map(s -> Integer.valueOf(Utils.splitColumns(s)[1])).sorted()
-                .toList();
         int distance = 0;
-        for(int i=0;i<leftIntegers.size();i++){
-            distance += Math.abs(leftIntegers.get(i)-rightIntegers.get(i));
+        for (int i = 0; i < leftIntegers.size(); i++) {
+            distance += Math.abs(leftIntegers.get(i) - rightIntegers.get(i));
         }
         return String.valueOf(distance);
     }
@@ -27,9 +23,30 @@ public class Day01 implements Day {
     @Override
     public String part2(final String input) {
         final List<String> lines = Utils.splitLines(input);
-        
-        return input;
+        final List<Integer> leftIntegers = getIntegerCol(lines, 0);
+        final List<Integer> rightIntegers = getIntegerCol(lines, 1);
+
+        int similarity = 0;
+        for (Integer left : leftIntegers) {
+    
+            similarity += left * rightIntegers.stream().filter(r -> r.equals(left)).toList().size();
+        }
+
+        return String.valueOf(similarity);
     }
 
+    /**
+     * Returns the column separated by " " as a sorted {@link List} of
+     * {@link Integers}.
+     * 
+     * @param lines
+     * @param col
+     * @return
+     */
+    private List<Integer> getIntegerCol(List<String> lines, int col) {
+        return lines.stream().filter(s -> s.contains("  "))
+                .map(s -> Integer.valueOf(Utils.splitColumns(s)[col])).sorted()
+                .toList();
+    }
 
 }
