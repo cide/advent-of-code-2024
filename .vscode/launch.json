@@ -9,18 +9,25 @@
             "name": "App",
             "request": "launch",
             "mainClass": "aoc.App",
-            "projectName": "advent-of-code-advent-of-code-java-starter",
+            "projectName": "advent-of-code-2024",
             "args": [
-                "${input:args}"
+                "${input:day}",
+                "${input:part}"
             ]
         }
     ],
     "inputs": [
         {
-            "id": "args",
+            "id": "day",
             "type":"promptString",
-            "description": "Enter day or day and part (e.g. '1' or '1 2')",
+            "description": "Enter day e.g. '1' ",
             "default": ""
+        },
+        {
+            "id": "part",
+            "type":"promptString",
+            "description": "Enter part 1 or 2 ",
+            "default": "1"
         }
     ]
 }
