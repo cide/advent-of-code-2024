@@ -28,7 +28,6 @@ public class Day01 implements Day {
 
         int similarity = 0;
         for (Integer left : leftIntegers) {
-    
             similarity += left * rightIntegers.stream().filter(r -> r.equals(left)).toList().size();
         }
 
@@ -45,7 +44,7 @@ public class Day01 implements Day {
      */
     private List<Integer> getIntegerCol(List<String> lines, int col) {
         return lines.stream().filter(s -> s.contains("  "))
-                .map(s -> Integer.valueOf(Utils.splitColumns(s)[col])).sorted()
+                .map(s -> Integer.valueOf(s.split(" {3}")[col])).sorted()
                 .toList();
     }
 

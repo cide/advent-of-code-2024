@@ -9,8 +9,4 @@ public class Utils {
         return Arrays.asList(input.split("\n"));
     } 
 
-    public static String[] splitColumns(final String line) {
-        return line.split(" {3}");
-    }
-
 }
