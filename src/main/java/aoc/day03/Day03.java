@@ -14,7 +14,6 @@ public class Day03 implements Day {
     public String part1(final String input) {
         int result = 0;
         try (Scanner multScanner = new Scanner(input)) {
-            final boolean work = true;
             for (final MatchResult match : multScanner.findAll(this.multPattern).toList()) {
                 result += this.calc(match.group());
             }
