@@ -29,7 +29,7 @@ public class Day04Test {
     @Test
     public void testPart2() {
         final String result = new Day04().part2(this.input);
-        final String expected = "0";
+        final String expected = "9";
         Assertions.assertEquals(expected, result);
     }
 }
