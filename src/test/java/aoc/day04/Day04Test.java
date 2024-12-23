@@ -1,4 +1,4 @@
-package day04;
+package aoc.day04;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
