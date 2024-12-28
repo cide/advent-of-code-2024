@@ -2,7 +2,6 @@ package aoc.day05;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import aoc.Day;
@@ -54,7 +53,7 @@ public class Day05 implements Day {
                     if (posl >= 0 && posr >= 0) {
                         if (posl >= posr) {
                             updatesReordered = IntStream.range(0, updatesCopy.size())
-                                    .mapToObj(i -> updatesCopy.get(flipValue(i, posl, posr))).toList();
+                                    .mapToObj(i -> updatesCopy.get(this.flipValue(i, posl, posr))).toList();
                             reordered = true;
                             repeat = true;
                             break;
