@@ -3,8 +3,6 @@ package aoc.day04;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import aoc.day04.Day04;
-
 public class Day04Test {
     private final String input = """
             MMMSXXMASM
