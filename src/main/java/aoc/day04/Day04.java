@@ -1,6 +1,5 @@
 package aoc.day04;
 
-import java.util.List;
 
 import aoc.Day;
 import aoc.Utils;
@@ -9,7 +8,7 @@ public class Day04 implements Day {
 
     @Override
     public String part1(final String input) {
-        final char[][] matrix = this.getCharMatrix(Utils.splitLines(input));
+        final char[][] matrix = Utils.getCharMatrix(input);
         int count = 0;
         for (int row = 0; row < matrix.length; row++) {
             for (int col = 0; col < matrix[row].length; col++) {
@@ -21,7 +20,7 @@ public class Day04 implements Day {
 
     @Override
     public String part2(final String input) {
-        final char[][] matrix = this.getCharMatrix(Utils.splitLines(input));
+        final char[][] matrix = Utils.getCharMatrix(input);
         int count = 0;
         for (int row = 1; row < matrix.length - 1; row++) {
             for (int col = 1; col < matrix[row].length - 1; col++) {
@@ -77,12 +76,6 @@ public class Day04 implements Day {
         }
     }
 
-    private char[][] getCharMatrix(final List<String> lines) {
-        final char[][] matrix = new char[lines.size()][lines.get(0).length()];
-        for (int i = 0; i < lines.size(); i++) {
-            matrix[i] = lines.get(i).toCharArray();
-        }
-        return matrix;
-    }
+   
 
 }

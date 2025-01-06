@@ -9,4 +9,13 @@ public class Utils {
         return Arrays.asList(input.split("\n"));
     } 
 
+    public static char[][] getCharMatrix(final String input) {
+        final List<String> lines = Utils.splitLines(input);
+        final char[][] matrix = new char[lines.size()][lines.get(0).length()];
+        for (int i = 0; i < lines.size(); i++) {
+            matrix[i] = lines.get(i).toCharArray();
+        }
+        return matrix;
+    }
+
 }
