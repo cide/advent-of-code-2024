@@ -27,7 +27,7 @@ public class Day06Test {
     @Test
     public void testPart2() {
         final String result = new Day06().part2(this.input);
-        final String expected = "123";
+        final String expected = "6";
         Assertions.assertEquals(expected, result);
     }
 }
