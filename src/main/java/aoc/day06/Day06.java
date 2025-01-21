@@ -123,7 +123,8 @@ public class Day06 implements Day {
      * @return next position or {@link null} (see above) 
      */
     private Coord moveGuard(final char[][] patrolArea, final Coord pos, final boolean markDirections) {
-        Character guard = patrolArea[pos.y][pos.x];
+        final char foundGuard = patrolArea[pos.y][pos.x];
+        Character guard = foundGuard;
         if (this.guardDirections.containsKey(guard)) {
             final Coord initialDirection = this.guardDirections.get(guard);
             Coord direction = initialDirection;
@@ -137,7 +138,7 @@ public class Day06 implements Day {
                     return null;
                 }
             }
-            patrolArea[pos.y][pos.x] = markDirections ? guard : this.visited;
+            patrolArea[pos.y][pos.x] = markDirections ? foundGuard : this.visited;
             if (this.isInPatrolArea(patrolArea, nextPos)) {
                 if (markDirections && guard.equals(patrolArea[nextPos.y][nextPos.x])) {
                     // guard walks in a loop
