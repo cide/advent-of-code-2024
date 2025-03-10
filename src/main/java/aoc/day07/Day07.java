@@ -46,6 +46,7 @@ public class Day07 implements Day {
      */
     private List<Operator[]> getOperatorAllCombinations(int length) {
         // TODO: Operator Array 
+        return null;
     }
 
     /**
@@ -57,7 +58,8 @@ public class Day07 implements Day {
      * @return
      */
     private Operator[] getOperatorCombination(int length, int bitMask) {
-        Operator[] operators = new Operator[];
+        Operator[] operators = new Operator[length];
+        return operators;
     }
 
     enum Operator {
